@@ -1,0 +1,47 @@
+Example Usage:
+
+Assumes:
+ OVA file has already been uploaded to engine as a known vm_template_name
+
+Flow:
+ 1. Create VM from uploaded vm template
+ 2. Add Disk to VM
+ 3. Start VM
+ 4. Get IP of VM
+
+If an error occurs on any of the scripts they will return exit code of '1'.
+If things succeed, they return '0'.
+Be sure to check the exit code to determine if they worked.
+If they showed an error grab stdout to see what happened.
+
+
+
+ Below will return a VM ID:
+
+$ ./ovirt_create_vm_from_template.py --api_host 10.8.101.181 --api_pass dog8code --vm_template_name jwm_cfme-rhevm-5.3-47_1432673130.7 --cluster_name "Default" --vm_name jwm_may29_13_09m
+76659ab3-d431-4542-bda1-6dac2e04060a
+
+VM ID is: 76659ab3-d431-4542-bda1-6dac2e04060a
+
+
+
+$ ./ovirt_add_disk_to_vm.py --api_host 10.8.101.181 --api_pass dog8code --size_gb 20 --storage_domain VMs --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
+A disk of '20'GB has been added to VM ID '76659ab3-d431-4542-bda1-6dac2e04060a'
+
+
+
+
+$ ./ovirt_start_vm.py  --api_host 10.8.101.181 --api_pass dog8code  --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
+05/29/2015 02:21:28 PM INFO VM ID '76659ab3-d431-4542-bda1-6dac2e04060a' started
+05/29/2015 02:21:30 PM INFO Waiting 10 seconds for VM '76659ab3-d431-4542-bda1-6dac2e04060a' to come up, current state 'wait_for_launch'  (0/120)
+05/29/2015 02:21:42 PM INFO Waiting 10 seconds for VM '76659ab3-d431-4542-bda1-6dac2e04060a' to come up, current state 'powering_up'  (1/120)
+05/29/2015 02:21:53 PM INFO Waiting 10 seconds for VM '76659ab3-d431-4542-bda1-6dac2e04060a' to come up, current state 'powering_up'  (2/120)
+05/29/2015 02:22:05 PM INFO Waiting 10 seconds for VM '76659ab3-d431-4542-bda1-6dac2e04060a' to come up, current state 'powering_up'  (3/120)
+05/29/2015 02:22:16 PM INFO VM ID '76659ab3-d431-4542-bda1-6dac2e04060a' is up
+05/29/2015 02:22:16 PM INFO VM ID '76659ab3-d431-4542-bda1-6dac2e04060a' is up
+Success
+
+
+$ ./ovirt_get_ip_of_vm.py  --api_host 10.8.101.181 --api_pass dog8code  --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
+10.8.101.248
+
