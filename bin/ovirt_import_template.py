@@ -83,22 +83,29 @@ if __name__ == "__main__":
     url = "https://%s" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
 
-    api = API(url=url, username=username, password=password, insecure=True)
+    api = API(url=url, username=api_user, password=api_pass, insecure=True)
+    api = API(url="https://10.8.101.181", username="admin@internal", password="dog8code", insecure=True)
     if not api:
         print "Failed to connect to '%s'" % (url)
         sys.exit()
 
     #imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
 
+    data_center = api.datacenters.get("Default")
+    export_domain = data_center.storagedomains.get(export_domain_name)
+    if not export_domain:
+        print "Unable to find export domain '%s'" % (export_domain_name)
+        sys.exit()
+
+    if export_domain.get_status().state != "active":
+        print "Export domain '%s' is in unexpected state '%s'" % (export_domain_name, export_domain.state)
+        sys.exit(1)
+
     # Import appliance as a VM template
     export_domain = api.storagedomains.get(export_domain_name)
 
     if not export_domain:
         print "Unable to find export domain '%s'" % (export_domain_name)
-        sys.exit(1)
-
-    if export_domain.status.state != "active":
-        print "Export domain '%s' is in unexpected state '%s'" % (export_domain_name, export_domain.state)
         sys.exit(1)
 
     storage_domain = api.storagedomains.get(storage_domain_name)
