@@ -14,22 +14,24 @@ If things succeed, they return '0'.
 Be sure to check the exit code to determine if they worked.
 If they showed an error grab stdout to see what happened.
 
+If the script is to return data, IP, ID, etc, check that the return code is '0', then read the last line from stdout for your output.
 
 
- Below will return a VM ID:
+# Below will return a VM ID, where 76659ab3-d431-4542-bda1-6dac2e04060a is the returned VM ID
 
 $ ./ovirt_create_vm_from_template.py --api_host 10.8.101.181 --api_pass dog8code --vm_template_name jwm_cfme-rhevm-5.3-47_1432673130.7 --cluster_name "Default" --vm_name jwm_may29_13_09m
 76659ab3-d431-4542-bda1-6dac2e04060a
 
-VM ID is: 76659ab3-d431-4542-bda1-6dac2e04060a
 
 
+# Adding a disk to a VM
 
 $ ./ovirt_add_disk_to_vm.py --api_host 10.8.101.181 --api_pass dog8code --size_gb 20 --storage_domain VMs --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
 A disk of '20'GB has been added to VM ID '76659ab3-d431-4542-bda1-6dac2e04060a'
 
 
 
+# Starting a VM
 
 $ ./ovirt_start_vm.py  --api_host 10.8.101.181 --api_pass dog8code  --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
 05/29/2015 02:21:28 PM INFO VM ID '76659ab3-d431-4542-bda1-6dac2e04060a' started
@@ -42,6 +44,23 @@ $ ./ovirt_start_vm.py  --api_host 10.8.101.181 --api_pass dog8code  --vm_id 7665
 Success
 
 
+# Example getting the IP from a running VM ID
+
 $ ./ovirt_get_ip_of_vm.py  --api_host 10.8.101.181 --api_pass dog8code  --vm_id 76659ab3-d431-4542-bda1-6dac2e04060a
 10.8.101.248
+
+
+
+# Example checking that the datacenter is up
+
+$ ./ovirt_get_datacenter_status.py --api_host 10.8.101.181 --api_pass dog8code --data_center Default
+up
+$ echo $?
+0
+
+
+$ ./ovirt_get_datacenter_status.py --api_host 10.8.101.181 --api_pass dog8code --data_center foo
+Couldn't find datacenter with name 'foo'
+$ echo $?
+1
 
