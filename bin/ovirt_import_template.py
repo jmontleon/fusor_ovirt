@@ -84,7 +84,6 @@ if __name__ == "__main__":
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
 
     api = API(url=url, username=api_user, password=api_pass, insecure=True)
-    api = API(url="https://10.8.101.181", username="admin@internal", password="dog8code", insecure=True)
     if not api:
         print "Failed to connect to '%s'" % (url)
         sys.exit()
