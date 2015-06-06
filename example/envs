@@ -1,0 +1,21 @@
+BIN="../bin"
+DATE=`date +"%s"`
+
+OVA_PATH="/var/lib/pulp/published/http/isos/Default_Organization-Red_Hat_CloudForms-Red_Hat_CloudForms_Management_Engine_5_3_Files_x86_64/cfme-rhevm-5.3-54.x86_64.rhevm.ova"
+OVA_NAME=`basename ${OVA_PATH}`
+
+API_HOST="192.168.252.25"
+SSH_USER="root"
+API_USER="admin@internal"
+API_PASS="dog8code"
+
+DATA_CENTER="Default"
+CLUSTER_NAME="Default"
+EXPORT_DOMAIN="my_export"
+STORAGE_DOMAIN="my_storage"
+
+VM_TEMPLATE_NAME="${USER}_${OVA_NAME}"
+VM_NAME="${USER}_${OVA_NAME}_${DATE}"
+SIZE_GB=20
+
+

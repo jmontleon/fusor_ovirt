@@ -21,11 +21,14 @@ Python scripts to interact with the oVirt API
 
 %install
 install -d -m0755 %{buildroot}%{_datadir}/%{name}/bin
+install -d -m0755 %{buildroot}%{_datadir}/%{name}/example
 cp bin/*.py %{buildroot}%{_datadir}/%{name}/bin
+cp example/* %{buildroot}%{_datadir}/%{name}/example
 
 %files
 %defattr(755,root,root,-)
 %{_datadir}/%{name}/bin
+%{_datadir}/%{name}/example
 %doc
 
 
