@@ -9,6 +9,9 @@ URL:            https://github.com/fusor/fusor_ovirt
 Source0:        %{name}-%{version}.tar.gz
 
 Requires:       ovirt-engine-sdk-python
+Requires:       python-paramiko
+Requires:       python-crypto
+Requires:       python-ecdsa
 
 %description
 Python scripts to interact with the oVirt API
