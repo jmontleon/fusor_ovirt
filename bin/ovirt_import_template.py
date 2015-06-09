@@ -86,7 +86,7 @@ if __name__ == "__main__":
     api = API(url=url, username=api_user, password=api_pass, insecure=True)
     if not api:
         print "Failed to connect to '%s'" % (url)
-        sys.exit()
+        sys.exit(1)
 
     #imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     export_domain = data_center.storagedomains.get(export_domain_name)
     if not export_domain:
         print "Unable to find export domain '%s'" % (export_domain_name)
-        sys.exit()
+        sys.exit(1)
 
     if export_domain.get_status().state != "active":
         print "Export domain '%s' is in unexpected state '%s'" % (export_domain_name, export_domain.state)
@@ -119,3 +119,4 @@ if __name__ == "__main__":
     print 'Waiting for Template to reach "ok" status'
     while api.templates.get(vm_template_name).status.state != 'ok':
         time.sleep(1)
+    sys.exit(0)
