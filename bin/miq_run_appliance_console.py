@@ -10,7 +10,7 @@ try:
 except:
     print "Please re-run after you have installed 'paramiko'"
     print "Example: easy_install paramiko"
-    sys.exit()
+    sys.exit(1)
 
 DEFAULT_SSH_USER="root"
 
