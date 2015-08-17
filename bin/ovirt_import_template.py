@@ -66,6 +66,21 @@ def setup_logging(debug=False):
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
+def import_template(export_domain, vm_template_name, import_template_params, attempts=20):
+    try:
+        vm_templ = export_domain.templates.get(vm_template_name)
+        vm_templ.import_template(import_template_params)
+    except RequestError, e:
+        if "Missing OVF file from VM" in e.detail and attempts > 0:
+            print "Waiting to retry importing template...sleeping 30 seconds"
+            time.sleep(30)
+            return import_template(export_domain, vm_template_name, import_template_params, attempts=attempts-1)
+        print e
+        return False
+    except Exception, e:
+        print e
+        return False
+    return True
 
 if __name__ == "__main__":
     opts = parse_args()
@@ -111,11 +126,11 @@ if __name__ == "__main__":
     cluster = api.clusters.get(name=cluster_name)
 
     import_template_params = params.Action(storage_domain=storage_domain, cluster=cluster)
-
-    export_domain.templates.get(vm_template_name).import_template(import_template_params)
+    if not import_template(export_domain, vm_template_name, import_template_params):
+        print "Error importing template '%s' to export domain '%s'" % (vm_template_name, export_domain_name)
+        sys.exit(1)
 
     print 'Template was imported successfully'
-
     print 'Waiting for Template to reach "ok" status'
     while api.templates.get(vm_template_name).status.state != 'ok':
         time.sleep(1)
