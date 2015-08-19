@@ -1,0 +1,75 @@
+Edit envs to match your deployment.
+
+Below is an example of running the scripts
+
+
+$ time ./scp_ova.sh 
+The authenticity of host '192.168.252.25 (192.168.252.25)' can't be established.
+RSA key fingerprint is 6b:81:ce:34:06:bf:a7:00:6d:0e:a0:9c:46:1e:f9:f1.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.252.25' (RSA) to the list of known hosts.
+root@192.168.252.25's password: 
+cfme-rhevm-5.3-54.x86_64.rhevm.ova                                                                                                            100%  501MB  71.5MB/s   00:07    
+
+real	0m10.621s
+user	0m6.191s
+sys	0m1.099s
+
+
+
+
+$ time ./run_engine_image_uploader.sh 
+root@192.168.252.25's password: 
+
+real	2m46.959s
+user	0m0.022s
+sys	0m0.006s
+
+
+
+$ time ./usage_example.sh 
+06/06/2015 11:27:00 AM DEBUG Connecting to oVirt API at: '192.168.252.25' with user 'admin@internal'
+Template was imported successfully
+Waiting for Template to reach "ok" status
+06/06/2015 11:30:39 AM DEBUG Connecting to oVirt API at: '192.168.252.25' with user 'admin@internal'
+06/06/2015 11:30:39 AM DEBUG Will attempt to create a VM named 'vagrant_cfme-rhevm-5.3-54.x86_64.rhevm.ova_1433604419'
+06/06/2015 11:30:39 AM DEBUG in cluster 'Default'
+06/06/2015 11:30:39 AM DEBUG from template 'vagrant_cfme-rhevm-5.3-54.x86_64.rhevm.ova'
+06/06/2015 11:30:41 AM DEBUG VM 'vagrant_cfme-rhevm-5.3-54.x86_64.rhevm.ova_1433604419' with ID: '201619d8-a001-41d9-91c6-246ed7c1c704' has been created.
+Will use VM ID: 201619d8-a001-41d9-91c6-246ed7c1c704
+06/06/2015 11:30:42 AM DEBUG Connecting to oVirt API at: '192.168.252.25' with user 'admin@internal'
+06/06/2015 11:30:42 AM DEBUG Will attempt to add a disk of size '20' to VM ID '201619d8-a001-41d9-91c6-246ed7c1c704'
+06/06/2015 11:30:42 AM DEBUG in storage domain 'my_storage'
+Waiting to retry adding disk...sleeping 30 seconds
+A disk of '20'GB has been added to VM ID '201619d8-a001-41d9-91c6-246ed7c1c704'
+06/06/2015 11:31:16 AM DEBUG VM id '201619d8-a001-41d9-91c6-246ed7c1c704', state: 'down'
+06/06/2015 11:31:17 AM INFO 
+status: 409
+reason: Conflict
+detail: Cannot run VM: The following disks are locked: vagrant_cfme-rhevm-5.3-54.x86_64.rhevm.ova_1433604419_Disk2. Please try again in a few minutes.
+06/06/2015 11:31:17 AM INFO Will retry, 0/30
+06/06/2015 11:31:27 AM DEBUG VM id '201619d8-a001-41d9-91c6-246ed7c1c704', state: 'down'
+06/06/2015 11:31:27 AM INFO VM ID '201619d8-a001-41d9-91c6-246ed7c1c704' started
+06/06/2015 11:31:27 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'wait_for_launch'  (0/120)
+06/06/2015 11:31:38 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (1/120)
+06/06/2015 11:31:48 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (2/120)
+06/06/2015 11:31:58 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (3/120)
+06/06/2015 11:32:09 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (4/120)
+06/06/2015 11:32:19 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (5/120)
+06/06/2015 11:32:29 AM INFO Waiting 10 seconds for VM '201619d8-a001-41d9-91c6-246ed7c1c704' to come up, current state 'powering_up'  (6/120)
+06/06/2015 11:32:39 AM INFO VM ID '201619d8-a001-41d9-91c6-246ed7c1c704' is up
+Success
+06/06/2015 11:32:41 AM DEBUG Waiting 5 seconds for IP to become available of VM ID '201619d8-a001-41d9-91c6-246ed7c1c704' (0/60)
+06/06/2015 11:32:46 AM DEBUG Waiting 5 seconds for IP to become available of VM ID '201619d8-a001-41d9-91c6-246ed7c1c704' (1/60)
+192.168.252.27
+06/06/2015 11:32:52 AM DEBUG Connecting to oVirt API at: '192.168.252.25' with user 'admin@internal'
+06/06/2015 11:32:52 AM DEBUG Will check status of data center named 'Default'
+up
+06/06/2015 11:32:53 AM DEBUG Connecting to oVirt API at: '192.168.252.25' with user 'admin@internal'
+06/06/2015 11:32:53 AM DEBUG Will check status of data center named 'Default'
+up
+
+real	5m53.867s
+user	0m32.507s
+sys	0m0.203s
+
