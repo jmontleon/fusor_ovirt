@@ -40,6 +40,9 @@ def parse_args():
     parser.add_option('--export_domain_name',
         default="export", help='export domain. Default: [export]')
 
+    parser.add_option('--data_center_name',
+        default="Default", help='data_center name. Default: [Default]')
+
     parser.add_option('--cluster_name',
         default="Default", help='cluster name. Default: [Default]')
 
@@ -94,6 +97,7 @@ if __name__ == "__main__":
     export_domain_name = opts.export_domain_name
     storage_domain_name = opts.storage_domain_name
     cluster_name = opts.cluster_name
+    data_center_name = opts.data_center_name
 
     url = "https://%s" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
@@ -105,7 +109,7 @@ if __name__ == "__main__":
 
     #imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
 
-    data_center = api.datacenters.get("Default")
+    data_center = api.datacenters.get(data_center_name)
     export_domain = data_center.storagedomains.get(export_domain_name)
     if not export_domain:
         print "Unable to find export domain '%s'" % (export_domain_name)
