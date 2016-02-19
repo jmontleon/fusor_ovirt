@@ -119,7 +119,6 @@ if __name__ == "__main__":
     size_gb = int(opts.size_gb)
     storage_domain_name = opts.storage_domain
 
-
     url = "https://%s" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
     logging.debug("Will attempt to add a disk of size '%s' to VM ID '%s'" % (size_gb, vm_id))

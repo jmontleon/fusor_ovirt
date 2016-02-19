@@ -100,7 +100,6 @@ if __name__ == "__main__":
         print "Couldn't find cluster with name '%s'" % (cluster_name)
         sys.exit(1)
 
-
     vm = create_vm_from_template(api, vm_name=vm_name, cluster=cluster, template=template)
     if not vm:
         print "Unable to create VM from template '%s'" % (vm_template_name)
