@@ -108,7 +108,7 @@ if __name__ == "__main__":
         print "Failed to connect to '%s'" % (url)
         sys.exit(1)
 
-    #imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
+    # imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
 
     data_center = api.datacenters.get(data_center_name)
     export_domain = data_center.storagedomains.get(export_domain_name)
