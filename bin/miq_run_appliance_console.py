@@ -18,20 +18,21 @@ DEFAULT_SSH_USER = "root"
 def parse_args():
     parser = OptionParser(description='Run the appliance console on miq host')
 
-    parser.add_option('--debug', action='store_true',
+    parser.add_option(
+        '--debug', action='store_true',
         default=False, help='debug mode')
 
-    parser.add_option('--miq_ip',
-        default=None, help='miq IP Address/Hostname')
+    parser.add_option('--miq_ip', default=None, help='miq IP Address/Hostname')
 
-    parser.add_option('--ssh_user',
-        default=DEFAULT_SSH_USER, help='miq SSH Username, defaults to "%s"' % (DEFAULT_SSH_USER))
+    parser.add_option(
+        '--ssh_user', default=DEFAULT_SSH_USER,
+        help='miq SSH Username, defaults to "%s"' % (DEFAULT_SSH_USER))
 
-    parser.add_option('--ssh_password',
+    parser.add_option(
+        '--ssh_password',
         default=None, help='miq SSH Password')
 
-    parser.add_option('--db_password',
-        default=None, help='DB password')
+    parser.add_option('--db_password', default=None, help='DB password')
 
     (opts, args) = parser.parse_args()
 

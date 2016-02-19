@@ -24,26 +24,28 @@ GB = 1024*MB
 def parse_args():
     parser = OptionParser(description='Add a disk to an existing VM ID')
 
-    parser.add_option('--debug', action='store_true',
+    parser.add_option(
+        '--debug', action='store_true',
         default=False, help='debug mode')
 
-    parser.add_option('--api_host',
-        default=None, help='oVirt API IP Address/Hostname')
+    parser.add_option(
+        '--api_host', default=None,
+        help='oVirt API IP Address/Hostname')
 
-    parser.add_option('--api_user',
-        default=DEFAULT_API_USER, help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
+        help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_id',
-        default=None, help='ID of an existing VM to add a disk to')
+    parser.add_option('--vm_id', default=None,
+                      help='ID of an existing VM to add a disk to')
 
-    parser.add_option('--size_gb',
-        default=None, help='Size of disk to add in GB')
+    parser.add_option('--size_gb', default=None,
+                      help='Size of disk to add in GB')
 
     parser.add_option('--storage_domain',
-        default=None, help='Name of storage domain')
+                      default=None, help='Name of storage domain')
 
     (opts, args) = parser.parse_args()
 

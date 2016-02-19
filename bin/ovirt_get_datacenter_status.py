@@ -22,19 +22,18 @@ def parse_args():
     parser = OptionParser(description='Create a VM in oVirt from an existing VM Template')
 
     parser.add_option('--debug', action='store_true',
-        default=False, help='debug mode')
+                      default=False, help='debug mode')
 
-    parser.add_option('--api_host',
-        default=None, help='oVirt API IP Address/Hostname')
+    parser.add_option('--api_host', default=None,
+                      help='oVirt API IP Address/Hostname')
 
-    parser.add_option('--api_user',
-        default=DEFAULT_API_USER, help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
+        help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--data_center',
-        default=None, help='Datacenter name')
+    parser.add_option('--data_center', default=None, help='Datacenter name')
 
     (opts, args) = parser.parse_args()
 

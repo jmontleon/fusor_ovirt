@@ -23,31 +23,31 @@ def parse_args():
     parser = OptionParser(description="Import CFME Template")
 
     parser.add_option("--debug", action="store_true",
-        default=False, help="debug mode")
+                      default=False, help="debug mode")
 
-    parser.add_option('--api_user', default=DEFAULT_API_USER,
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
         help='oVirt API Username. Default: [%s]' % (DEFAULT_API_USER))
 
-    parser.add_option("--api_host",
-        default=None, help="oVirt API IP Address/Hostname")
+    parser.add_option("--api_host", default=None,
+                      help="oVirt API IP Address/Hostname")
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_template_name',
-        default=None, help='VM template name to import')
+    parser.add_option('--vm_template_name', default=None,
+                      help='VM template name to import')
 
-    parser.add_option('--export_domain_name',
-        default="export", help='export domain. Default: [export]')
+    parser.add_option('--export_domain_name', default="export",
+                      help='export domain. Default: [export]')
 
-    parser.add_option('--data_center_name',
-        default="Default", help='data_center name. Default: [Default]')
+    parser.add_option('--data_center_name', default="Default",
+                      help='data_center name. Default: [Default]')
 
-    parser.add_option('--cluster_name',
-        default="Default", help='cluster name. Default: [Default]')
+    parser.add_option('--cluster_name', default="Default",
+                      help='cluster name. Default: [Default]')
 
-    parser.add_option('--storage_domain_name',
-        default="VMs", help='storage domain. Default: [VMs]')
+    parser.add_option('--storage_domain_name', default="VMs",
+                      help='storage domain. Default: [VMs]')
 
     (opts, args) = parser.parse_args()
 

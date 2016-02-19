@@ -22,25 +22,24 @@ def parse_args():
     parser = OptionParser(description='Create a VM in oVirt from an existing VM Template')
 
     parser.add_option('--debug', action='store_true',
-        default=False, help='debug mode')
+                      default=False, help='debug mode')
 
-    parser.add_option('--api_host',
-        default=None, help='oVirt API IP Address/Hostname')
+    parser.add_option('--api_host', default=None,
+                      help='oVirt API IP Address/Hostname')
 
-    parser.add_option('--api_user',
-        default=DEFAULT_API_USER, help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
+        help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_template_name',
-        default=None, help='VM template name to create VM from')
+    parser.add_option('--vm_template_name', default=None,
+                      help='VM template name to create VM from')
 
-    parser.add_option('--cluster_name',
-        default=None, help='Cluster name to create VM in')
+    parser.add_option('--cluster_name', default=None,
+                      help='Cluster name to create VM in')
 
-    parser.add_option('--vm_name',
-        default=None, help='VM name to be created')
+    parser.add_option('--vm_name', default=None, help='VM name to be created')
 
     (opts, args) = parser.parse_args()
 
