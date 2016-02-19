@@ -22,7 +22,7 @@ DEFAULT_API_USER = "admin@internal"
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
 
-    parser.add_option('--debug', action='store_true', 
+    parser.add_option('--debug', action='store_true',
         default=False, help='debug mode')
 
     parser.add_option('--api_host',

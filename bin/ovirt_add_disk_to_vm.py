@@ -24,7 +24,7 @@ GB = 1024*MB
 def parse_args():
     parser = OptionParser(description='Add a disk to an existing VM ID')
 
-    parser.add_option('--debug', action='store_true', 
+    parser.add_option('--debug', action='store_true',
         default=False, help='debug mode')
 
     parser.add_option('--api_host',
@@ -98,7 +98,7 @@ def add_disk_to_vm(api, vm_id, size_gb, storage_domain_name):
             print e
             return False
         return True
-    
+
     disk_params = create_params()
     return issue_add_request(disk_params)
 
