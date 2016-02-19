@@ -16,7 +16,7 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
 
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
@@ -64,7 +64,7 @@ def start_vm(api, vm_id):
 
     vm_started = False
     max_count = 30
-    for x in range(0,max_count):
+    for x in range(0, max_count):
         logging.debug("VM id '%s', state: '%s'" % (vm_id, vm.status.state))
         try:
             vm.start()

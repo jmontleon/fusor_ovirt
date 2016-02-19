@@ -16,7 +16,7 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
 MB = 1024*1024
 GB = 1024*MB
 

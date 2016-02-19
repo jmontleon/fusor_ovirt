@@ -12,7 +12,7 @@ except:
     print "Example: easy_install paramiko"
     sys.exit(1)
 
-DEFAULT_SSH_USER="root"
+DEFAULT_SSH_USER = "root"
 
 def parse_args():
     parser = OptionParser(description='Run the appliance console on miq host')
@@ -82,8 +82,8 @@ if __name__ == "__main__":
     status, stdout, stderr = configure_cfme(ipaddr, ssh_username, ssh_password, region, db_password)
     
     if status == 0:
-        print "Command output: '%s'" %(stdout)
+        print "Command output: '%s'" % (stdout)
     else:
-        print "Error output: '%s'" %(stderr)
+        print "Error output: '%s'" % (stderr)
 
     sys.exit(status)

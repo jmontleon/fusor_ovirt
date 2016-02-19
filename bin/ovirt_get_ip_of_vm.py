@@ -16,7 +16,7 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
 
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
