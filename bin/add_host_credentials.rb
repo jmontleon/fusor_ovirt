@@ -60,7 +60,7 @@ end
 # get the host list & check against the csv provided
 # (due to the delay in host availability, wait and recheck)
 tries = MAX_RETRY
-while tries > 0 do
+while tries > 0
   rhev_hosts = rhev_provider.hosts
   if !rhev_hosts
     puts "hosts is nil! recheck in #{CHECK_SLEEP} seconds... "
