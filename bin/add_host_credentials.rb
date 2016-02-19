@@ -13,25 +13,25 @@ ERROR_HOST_DETAIL    = 5
 CHECK_SLEEP = 30 
 MAX_RETRY   = 6
 
-if not ARGV[0]
+if !ARGV[0]
   provider_name = "rhev_deployment"
 else
   provider_name = ARGV[0]
 end
 
-if not ARGV[1]
+if !ARGV[1]
   user_name = "root"
 else
   user_name = ARGV[1]
 end
 
-if not ARGV[2]
+if !ARGV[2]
   password = "changeme"
 else
   password = ARGV[2]
 end
 
-if not ARGV[3]
+if !ARGV[3]
   csv_fname = "hosts.csv"
 else
   csv_fname = ARGV[3]
@@ -52,7 +52,7 @@ end
 
 # get the provider
 rhev_provider = ManageIQ::Providers::Redhat::InfraManager.find_by_name(provider_name)
-if not rhev_provider
+if !rhev_provider
   puts "ERROR - provider is nil!"
   exit ERROR_PROVIDER
 end
@@ -62,7 +62,7 @@ end
 tries = MAX_RETRY
 while tries > 0 do
   rhev_hosts = rhev_provider.hosts
-  if not rhev_hosts
+  if !rhev_hosts
     puts "hosts is nil! recheck in #{CHECK_SLEEP} seconds... "
     sleep(CHECK_SLEEP)
   elsif rhev_hosts.count != num_csv_hosts
