@@ -18,6 +18,7 @@ except:
 
 DEFAULT_API_USER = "admin@internal"
 
+
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
 
@@ -48,6 +49,7 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
@@ -77,6 +79,7 @@ def start_vm(api, vm_id):
             time.sleep(10)
             continue
     return vm_started
+
 
 def wait_for_vm_up(api, vm_id):
     vm_is_up = False

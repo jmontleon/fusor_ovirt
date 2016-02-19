@@ -17,6 +17,7 @@ except:
 
 DEFAULT_API_USER = "admin@internal"
 
+
 def parse_args():
     parser = OptionParser(description='Create a VM in oVirt from an existing VM Template')
 
@@ -46,6 +47,7 @@ def parse_args():
             sys.exit(1)
 
     return opts
+
 
 def setup_logging(debug=False):
     if debug:

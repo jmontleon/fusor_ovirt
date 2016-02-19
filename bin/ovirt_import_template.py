@@ -69,6 +69,7 @@ def setup_logging(debug=False):
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
+
 def import_template(export_domain, vm_template_name, import_template_params, attempts=20):
     try:
         vm_templ = export_domain.templates.get(vm_template_name)

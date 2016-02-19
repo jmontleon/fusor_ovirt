@@ -14,6 +14,7 @@ except:
 
 DEFAULT_SSH_USER = "root"
 
+
 def parse_args():
     parser = OptionParser(description='Run the appliance console on miq host')
 
@@ -44,12 +45,14 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
 
 def configure_cfme(ipaddr, ssh_username, ssh_password, region, db_password):
     cmd = "appliance_console_cli --region %s --internal --force-key -p %s" % (region, db_password)

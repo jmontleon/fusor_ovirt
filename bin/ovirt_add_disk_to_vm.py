@@ -20,6 +20,7 @@ DEFAULT_API_USER = "admin@internal"
 MB = 1024*1024
 GB = 1024*MB
 
+
 def parse_args():
     parser = OptionParser(description='Add a disk to an existing VM ID')
 
@@ -55,6 +56,7 @@ def parse_args():
             sys.exit(1)
 
     return opts
+
 
 def setup_logging(debug=False):
     if debug:

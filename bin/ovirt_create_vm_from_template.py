@@ -17,6 +17,7 @@ except:
 
 DEFAULT_API_USER = "admin@internal"
 
+
 def parse_args():
     parser = OptionParser(description='Create a VM in oVirt from an existing VM Template')
 
@@ -53,12 +54,14 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
 
 def create_vm_from_template(api, vm_name, cluster, template):
     vm_params = params.VM(name=vm_name, cluster=cluster, template=template)

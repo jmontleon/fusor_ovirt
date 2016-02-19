@@ -18,6 +18,7 @@ except:
 
 DEFAULT_API_USER = "admin@internal"
 
+
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
 
@@ -48,12 +49,14 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
 
 def get_ip(api, vm_id):
     def __get_ip():
