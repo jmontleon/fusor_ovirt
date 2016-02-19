@@ -10,7 +10,7 @@ ERROR_PROVIDER       = 3
 ERROR_HOST_NOT_FOUND = 4
 ERROR_HOST_DETAIL    = 5
 
-CHECK_SLEEP = 30 
+CHECK_SLEEP = 30
 MAX_RETRY   = 6
 
 if !ARGV[0]
@@ -76,7 +76,7 @@ end
 
 # verify the ip & hostname against the csv host list
 rhev_hosts.each do |rhost|
-  match = csv_hosts.find{|row| row['ip'] == rhost.ipaddress}
+  match = csv_hosts.find { |row| row['ip'] == rhost.ipaddress }
   if match == ""
     puts "ERROR - Host with #{rhost.ipaddress}, #{rhost.hostname} was NOT FOUND!"
     exit ERROR_HOST_NOT_FOUND
