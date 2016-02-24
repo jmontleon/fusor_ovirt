@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - 2.7
+
+branches:
+ only:
+ - master
+
+notifications:
+ email: false
+
+install:
+    pip install flake8 pylint
+
+script:
+    flake8 bin/fusor-undercloud-configurator
+    #pylint bin/fusor-undercloud-configurator
