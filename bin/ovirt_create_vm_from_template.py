@@ -42,7 +42,8 @@ def parse_args():
 
     (opts, args) = parser.parse_args()
 
-    for optname in ["api_host", "api_pass", "api_user", "vm_template_name", "cluster_name", "vm_name"]:
+    for optname in ["api_host", "api_pass", "api_user",
+                    "vm_template_name", "cluster_name", "vm_name"]:
         optvalue = getattr(opts, optname)
         if not optvalue:
             parser.print_help()
@@ -58,7 +59,8 @@ def setup_logging(debug=False):
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def create_vm_from_template(api, vm_name, cluster, template):

@@ -54,7 +54,8 @@ def setup_logging(debug=False):
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def start_vm(api, vm_id):
@@ -90,7 +91,8 @@ def wait_for_vm_up(api, vm_id):
             logging.info("VM ID '%s' is up" % (vm_id))
             vm_is_up = True
             break
-        logging.info("Waiting %s seconds for VM '%s' to come up, current state '%s'  (%s/%s)" % (wait_secs, vm_id, vm_state, count, max_tries))
+        logging.info("Waiting %s seconds for VM '%s' to come up, current state '%s'  (%s/%s)" %
+                     (wait_secs, vm_id, vm_state, count, max_tries))
         time.sleep(wait_secs)
 
     return vm_is_up

@@ -64,7 +64,8 @@ def setup_logging(debug=False):
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def add_disk_to_vm(api, vm_id, size_gb, storage_domain_name):
@@ -116,19 +117,19 @@ if __name__ == "__main__":
 
     vm_id = opts.vm_id
     size_gb = int(opts.size_gb)
-    storage_domain_name = opts.storage_domain
+    s_domain_name = opts.storage_domain
 
     url = "https://%s" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
     logging.debug("Will attempt to add a disk of size '%s' to VM ID '%s'" % (size_gb, vm_id))
-    logging.debug("in storage domain '%s'" % (storage_domain_name))
+    logging.debug("in storage domain '%s'" % (s_domain_name))
 
     api = API(url=url, username=api_user, password=api_pass, insecure=True)
     if not api:
         print "Failed to connect to '%s'" % (url)
         sys.exit(1)
 
-    if not add_disk_to_vm(api, vm_id=vm_id, size_gb=size_gb, storage_domain_name=storage_domain_name):
+    if not add_disk_to_vm(api, vm_id=vm_id, size_gb=size_gb, storage_domain_name=s_domain_name):
         print "Error adding disk of size '%s' to VM ID '%s'" % (size_gb, vm_id)
         sys.exit(1)
     print "A disk of '%s'GB has been added to VM ID '%s'" % (size_gb, vm_id)

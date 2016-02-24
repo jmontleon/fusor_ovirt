@@ -66,7 +66,8 @@ def setup_logging(debug=False):
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def import_template(export_domain, vm_template_name, import_template_params, attempts=20):
@@ -77,7 +78,8 @@ def import_template(export_domain, vm_template_name, import_template_params, att
         if "Missing OVF file from VM" in e.detail and attempts > 0:
             print "Waiting to retry importing template...sleeping 30 seconds"
             time.sleep(30)
-            return import_template(export_domain, vm_template_name, import_template_params, attempts=attempts-1)
+            return import_template(export_domain, vm_template_name,
+                                   import_template_params, attempts=attempts-1)
         print e
         return False
     except Exception, e:
@@ -116,7 +118,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if export_domain.get_status().state != "active":
-        print "Export domain '%s' is in unexpected state '%s'" % (export_domain_name, export_domain.state)
+        print "Export domain '%s' is in unexpected state '%s'" % \
+              (export_domain_name, export_domain.state)
+
         sys.exit(1)
 
     # Import appliance as a VM template
@@ -131,7 +135,9 @@ if __name__ == "__main__":
 
     import_template_params = params.Action(storage_domain=storage_domain, cluster=cluster)
     if not import_template(export_domain, vm_template_name, import_template_params):
-        print "Error importing template '%s' to export domain '%s'" % (vm_template_name, export_domain_name)
+        print "Error importing template '%s' to export domain '%s'" % \
+              (vm_template_name, export_domain_name)
+
         sys.exit(1)
 
     print 'Template was imported successfully'
