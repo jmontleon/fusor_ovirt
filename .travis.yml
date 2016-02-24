@@ -14,5 +14,5 @@ install:
     pip install flake8 pylint
 
 script:
-    flake8 bin/fusor-undercloud-configurator
-    #pylint bin/fusor-undercloud-configurator
+    flake8 bin/*.py
+    #pylint bin/*.py
