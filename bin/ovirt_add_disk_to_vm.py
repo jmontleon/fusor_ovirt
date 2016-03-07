@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import logging
-import os
 import sys
 import time
 from optparse import OptionParser
@@ -16,33 +15,36 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
 MB = 1024*1024
 GB = 1024*MB
+
 
 def parse_args():
     parser = OptionParser(description='Add a disk to an existing VM ID')
 
-    parser.add_option('--debug', action='store_true', 
+    parser.add_option(
+        '--debug', action='store_true',
         default=False, help='debug mode')
 
-    parser.add_option('--api_host',
-        default=None, help='oVirt API IP Address/Hostname')
+    parser.add_option(
+        '--api_host', default=None,
+        help='oVirt API IP Address/Hostname')
 
-    parser.add_option('--api_user',
-        default=DEFAULT_API_USER, help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
+        help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_id',
-        default=None, help='ID of an existing VM to add a disk to')
+    parser.add_option('--vm_id', default=None,
+                      help='ID of an existing VM to add a disk to')
 
-    parser.add_option('--size_gb',
-        default=None, help='Size of disk to add in GB')
+    parser.add_option('--size_gb', default=None,
+                      help='Size of disk to add in GB')
 
     parser.add_option('--storage_domain',
-        default=None, help='Name of storage domain')
+                      default=None, help='Name of storage domain')
 
     (opts, args) = parser.parse_args()
 
@@ -56,12 +58,14 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def add_disk_to_vm(api, vm_id, size_gb, storage_domain_name):
@@ -96,7 +100,7 @@ def add_disk_to_vm(api, vm_id, size_gb, storage_domain_name):
             print e
             return False
         return True
-    
+
     disk_params = create_params()
     return issue_add_request(disk_params)
 
@@ -113,20 +117,19 @@ if __name__ == "__main__":
 
     vm_id = opts.vm_id
     size_gb = int(opts.size_gb)
-    storage_domain_name = opts.storage_domain
-
+    s_domain_name = opts.storage_domain
 
     url = "https://%s" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
     logging.debug("Will attempt to add a disk of size '%s' to VM ID '%s'" % (size_gb, vm_id))
-    logging.debug("in storage domain '%s'" % (storage_domain_name))
+    logging.debug("in storage domain '%s'" % (s_domain_name))
 
     api = API(url=url, username=api_user, password=api_pass, insecure=True)
     if not api:
         print "Failed to connect to '%s'" % (url)
         sys.exit(1)
 
-    if not add_disk_to_vm(api, vm_id=vm_id, size_gb=size_gb, storage_domain_name=storage_domain_name):
+    if not add_disk_to_vm(api, vm_id=vm_id, size_gb=size_gb, storage_domain_name=s_domain_name):
         print "Error adding disk of size '%s' to VM ID '%s'" % (size_gb, vm_id)
         sys.exit(1)
     print "A disk of '%s'GB has been added to VM ID '%s'" % (size_gb, vm_id)

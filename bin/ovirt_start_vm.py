@@ -1,14 +1,12 @@
 #! /usr/bin/env python
 
 import logging
-import os
 import sys
 import time
 from optparse import OptionParser
 
 try:
     from ovirtsdk.api import API
-    from ovirtsdk.xml import params
     from ovirtsdk.infrastructure.errors import RequestError
 except:
     print "Please re-run after you have installed 'ovirt-engine-sdk-python'"
@@ -16,25 +14,26 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
+
 
 def parse_args():
     parser = OptionParser(description='Get the IP of a running VM')
 
-    parser.add_option('--debug', action='store_true', 
-        default=False, help='debug mode')
+    parser.add_option('--debug', action='store_true', default=False,
+                      help='debug mode')
 
-    parser.add_option('--api_host',
-        default=None, help='oVirt API IP Address/Hostname')
+    parser.add_option('--api_host', default=None,
+                      help='oVirt API IP Address/Hostname')
 
-    parser.add_option('--api_user',
-        default=DEFAULT_API_USER, help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
+        help='oVirt API Username, defaults to "%s"' % (DEFAULT_API_USER))
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_id',
-        default=None, help='ID of an existing VM to add a disk to')
+    parser.add_option('--vm_id', default=None,
+                      help='ID of an existing VM to add a disk to')
 
     (opts, args) = parser.parse_args()
 
@@ -48,12 +47,14 @@ def parse_args():
 
     return opts
 
+
 def setup_logging(debug=False):
     if debug:
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def start_vm(api, vm_id):
@@ -64,7 +65,7 @@ def start_vm(api, vm_id):
 
     vm_started = False
     max_count = 30
-    for x in range(0,max_count):
+    for x in range(0, max_count):
         logging.debug("VM id '%s', state: '%s'" % (vm_id, vm.status.state))
         try:
             vm.start()
@@ -78,6 +79,7 @@ def start_vm(api, vm_id):
             continue
     return vm_started
 
+
 def wait_for_vm_up(api, vm_id):
     vm_is_up = False
     max_tries = 120
@@ -88,7 +90,8 @@ def wait_for_vm_up(api, vm_id):
             logging.info("VM ID '%s' is up" % (vm_id))
             vm_is_up = True
             break
-        logging.info("Waiting %s seconds for VM '%s' to come up, current state '%s'  (%s/%s)" % (wait_secs, vm_id, vm_state, count, max_tries))
+        logging.info("Waiting %s seconds for VM '%s' to come up, current state '%s'  (%s/%s)" %
+                     (wait_secs, vm_id, vm_state, count, max_tries))
         time.sleep(wait_secs)
 
     return vm_is_up

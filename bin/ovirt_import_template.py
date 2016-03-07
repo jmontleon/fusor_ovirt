@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import logging
-import os
 import sys
 import time
 from optparse import OptionParser
@@ -16,38 +15,38 @@ except:
     sys.exit()
 
 
-DEFAULT_API_USER="admin@internal"
+DEFAULT_API_USER = "admin@internal"
 
 
 def parse_args():
     parser = OptionParser(description="Import CFME Template")
 
     parser.add_option("--debug", action="store_true",
-        default=False, help="debug mode")
+                      default=False, help="debug mode")
 
-    parser.add_option('--api_user', default=DEFAULT_API_USER,
+    parser.add_option(
+        '--api_user', default=DEFAULT_API_USER,
         help='oVirt API Username. Default: [%s]' % (DEFAULT_API_USER))
 
-    parser.add_option("--api_host",
-        default=None, help="oVirt API IP Address/Hostname")
+    parser.add_option("--api_host", default=None,
+                      help="oVirt API IP Address/Hostname")
 
-    parser.add_option('--api_pass',
-        default=None, help='oVirt API Password')
+    parser.add_option('--api_pass', default=None, help='oVirt API Password')
 
-    parser.add_option('--vm_template_name',
-        default=None, help='VM template name to import')
+    parser.add_option('--vm_template_name', default=None,
+                      help='VM template name to import')
 
-    parser.add_option('--export_domain_name',
-        default="export", help='export domain. Default: [export]')
+    parser.add_option('--export_domain_name', default="export",
+                      help='export domain. Default: [export]')
 
-    parser.add_option('--data_center_name',
-        default="Default", help='data_center name. Default: [Default]')
+    parser.add_option('--data_center_name', default="Default",
+                      help='data_center name. Default: [Default]')
 
-    parser.add_option('--cluster_name',
-        default="Default", help='cluster name. Default: [Default]')
+    parser.add_option('--cluster_name', default="Default",
+                      help='cluster name. Default: [Default]')
 
-    parser.add_option('--storage_domain_name',
-        default="VMs", help='storage domain. Default: [VMs]')
+    parser.add_option('--storage_domain_name', default="VMs",
+                      help='storage domain. Default: [VMs]')
 
     (opts, args) = parser.parse_args()
 
@@ -67,7 +66,9 @@ def setup_logging(debug=False):
         loglevel = logging.DEBUG
     else:
         loglevel = logging.INFO
-    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig(level=loglevel, format='%(asctime)s %(levelname)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p')
+
 
 def import_template(export_domain, vm_template_name, import_template_params, attempts=20):
     try:
@@ -77,7 +78,8 @@ def import_template(export_domain, vm_template_name, import_template_params, att
         if "Missing OVF file from VM" in e.detail and attempts > 0:
             print "Waiting to retry importing template...sleeping 30 seconds"
             time.sleep(30)
-            return import_template(export_domain, vm_template_name, import_template_params, attempts=attempts-1)
+            return import_template(export_domain, vm_template_name,
+                                   import_template_params, attempts=attempts-1)
         print e
         return False
     except Exception, e:
@@ -107,7 +109,7 @@ if __name__ == "__main__":
         print "Failed to connect to '%s'" % (url)
         sys.exit(1)
 
-    #imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
+    # imported_template_name = "zeus2_cfme-rhevm-5.3-47_%s" % (time.time())
 
     data_center = api.datacenters.get(data_center_name)
     export_domain = data_center.storagedomains.get(export_domain_name)
@@ -116,7 +118,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if export_domain.get_status().state != "active":
-        print "Export domain '%s' is in unexpected state '%s'" % (export_domain_name, export_domain.state)
+        print "Export domain '%s' is in unexpected state '%s'" % \
+              (export_domain_name, export_domain.state)
+
         sys.exit(1)
 
     # Import appliance as a VM template
@@ -131,7 +135,9 @@ if __name__ == "__main__":
 
     import_template_params = params.Action(storage_domain=storage_domain, cluster=cluster)
     if not import_template(export_domain, vm_template_name, import_template_params):
-        print "Error importing template '%s' to export domain '%s'" % (vm_template_name, export_domain_name)
+        print "Error importing template '%s' to export domain '%s'" % \
+              (vm_template_name, export_domain_name)
+
         sys.exit(1)
 
     print 'Template was imported successfully'
