@@ -77,5 +77,22 @@ if __name__ == "__main__":
     if not data_center:
         print "Couldn't find datacenter with name '%s'" % (data_center_name)
         sys.exit(1)
+
+    storage_domains = data_center.storagedomains.list()
+    if not any([sd.get_status().state == 'active' for sd in storage_domains]):
+        print "Couldn't find an active storage domain" \
+                "for datacenter with name '%s'" % (data_center_name)
+        sys.exit(1)
+
+    clusters = data_center.clusters.list()
+    cluster_ids = [cluster.id for cluster in clusters]
+
+    # Host must be up, and must be SPM
+    hosts = filter(lambda host: host.cluster.id in cluster_ids, api.hosts.list())
+    if not any([host.get_status().state == 'up' and
+                host.spm.status.state == 'spm' for host in hosts]):
+        print "Couldn't find an active SPM host for datacenter with name '%s'" % (data_center_name)
+        sys.exit(1)
+
     print data_center.status.state
     sys.exit(0)
