@@ -1,6 +1,6 @@
 Name:           fusor_ovirt
-Version:        0.1
-Release:        1%{?dist}
+Version:        1.0
+Release:        0%{?dist}
 Summary:        Scripts to interact with oVirt API
 
 Group:          Applications/System
