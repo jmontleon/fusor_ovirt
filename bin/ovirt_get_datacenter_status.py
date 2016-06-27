@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     storage_domains = data_center.storagedomains.list()
     if not any([sd.get_status().state == 'active' for sd in storage_domains]):
-        print "Couldn't find an active storage domain" \
+        print "Couldn't find an active storage domain " \
                 "for datacenter with name '%s'" % (data_center_name)
         sys.exit(1)
 
