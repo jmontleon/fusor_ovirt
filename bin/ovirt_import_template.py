@@ -101,7 +101,7 @@ if __name__ == "__main__":
     cluster_name = opts.cluster_name
     data_center_name = opts.data_center_name
 
-    url = "https://%s" % (api_host)
+    url = "https://%s/ovirt-engine/api" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
 
     api = API(url=url, username=api_user, password=api_pass, insecure=True)
