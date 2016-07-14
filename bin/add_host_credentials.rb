@@ -76,14 +76,10 @@ end
 
 # verify the ip & hostname against the csv host list
 rhev_hosts.each do |rhost|
-  match = csv_hosts.find { |row| row['ip'] == rhost.ipaddress }
+  match = csv_hosts.find { |row| row['hostname'] == rhost.hostname }
   if match == ""
-    puts "ERROR - Host with #{rhost.ipaddress}, #{rhost.hostname} was NOT FOUND!"
+    puts "ERROR - RHEV Host with #{rhost.hostname} was NOT FOUND in CSV File!"
     exit ERROR_HOST_NOT_FOUND
-  elsif !match[1].strip.eql?(rhost.hostname.strip)
-    puts "ERROR - IP and Hostname does NOT match for IP=\"#{rhost.ipaddress}\"! "
-    puts "  hostname is \"#{rhost.hostname}\", expected \"#{match[1]}\""
-    exit ERROR_HOST_DETAIL
   end
 end
 
