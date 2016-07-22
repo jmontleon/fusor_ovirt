@@ -13,6 +13,8 @@ Requires:       python-paramiko
 Requires:       python-crypto
 Requires:       python-ecdsa
 
+BuildArch:      noarch
+
 %description
 Python scripts to interact with the oVirt API
 
