@@ -64,7 +64,7 @@ if __name__ == "__main__":
     api_pass = opts.api_pass
     data_center_name = opts.data_center
 
-    url = "https://%s" % (api_host)
+    url = "https://%s/ovirt-engine/api" % (api_host)
     logging.debug("Connecting to oVirt API at: '%s' with user '%s'" % (api_host, api_user))
     logging.debug("Will check status of data center named '%s'" % (data_center_name))
 
