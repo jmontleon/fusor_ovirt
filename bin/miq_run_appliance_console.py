@@ -24,6 +24,8 @@ def parse_args():
 
     parser.add_option('--miq_ip', default=None, help='miq IP Address/Hostname')
 
+    parser.add_option('--primary_appliance', default=None, help='secondary miq IP address/Hostname')
+
     parser.add_option(
         '--ssh_user', default=DEFAULT_SSH_USER,
         help='miq SSH Username, defaults to "%s"' % (DEFAULT_SSH_USER))
@@ -56,8 +58,28 @@ def setup_logging(debug=False):
                         datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
-def configure_cfme(ipaddr, ssh_username, ssh_password, region, db_password):
+def configure_primary_cfme(ipaddr, ssh_username, ssh_password, region, db_password):
     cmd = "appliance_console_cli --region %s --internal --force-key -p %s" % (region, db_password)
+    client = SSHClient()
+    try:
+        client.set_missing_host_key_policy(AutoAddPolicy())
+        client.connect(ipaddr, username=ssh_username, password=ssh_password, allow_agent=False)
+        print "Will run below command on host: '%s'" % (ipaddr)
+        print cmd
+        stdin, stdout, stderr = client.exec_command(cmd)
+        status = stdout.channel.recv_exit_status()
+        out = stdout.readlines()
+        err = stderr.readlines()
+        return status, out, err
+    finally:
+        client.close()
+
+
+def configure_secondary_cfme(ipaddr, primary_ip, ssh_username, ssh_password, db_password):
+    cmd = "appliance_console_cli --hostname %s --dbname vmdb_production" \
+          "--fetch-key %s --username root --password %s --sshpassword %s" \
+          % (primary_ip, primary_ip, db_password, ssh_password)
+
     client = SSHClient()
     try:
         client.set_missing_host_key_policy(AutoAddPolicy())
@@ -76,6 +98,7 @@ if __name__ == "__main__":
 
     opts = parse_args()
     debug = opts.debug
+    primary_appliance = opts.primary_appliance
     setup_logging(debug)
 
     ipaddr = opts.miq_ip
@@ -84,7 +107,12 @@ if __name__ == "__main__":
     region = 1
     db_password = opts.db_password
 
-    status, stdout, stderr = configure_cfme(ipaddr, ssh_username, ssh_password, region, db_password)
+    if primary_appliance:
+        status, stdout, stderr = configure_secondary_cfme(ipaddr, primary_appliance,
+                                                          ssh_username, ssh_password, db_password)
+    else:
+        status, stdout, stderr = configure_primary_cfme(ipaddr, ssh_username, ssh_password,
+                                                        region, db_password)
 
     if status == 0:
         print "Command output: '%s'" % (stdout)
